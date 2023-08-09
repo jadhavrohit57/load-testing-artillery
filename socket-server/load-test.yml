@@ -1,0 +1,23 @@
+config:
+  target: "http://localhost:8080"
+  socketio:
+    query:
+      roomId: "room1"
+    transports: ["websocket"]
+  phases:
+    - duration: 10
+      arrivalRate: 60
+  processor: "./payloads.js"
+scenarios:
+  - engine: "socketio"
+    flow:
+      - think: 2
+      - function: "getmessageData"
+      - loop:
+          - emit:
+              channel: "message"
+              data: "{{message}}"
+          - think: 0.5
+        count: 10
+
+      
