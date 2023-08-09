@@ -1,0 +1,43 @@
+config:
+  target: http:/localhost:8080
+  phases:
+    - duration: 10
+      arrivalRate: 1
+      rampTo: 5
+      name: Warm up phase
+    - duration: 20
+      arrivalRate: 5
+      rampTo: 10
+      name: Ramp up load
+    - duration: 20
+      arrivalRate: 10
+      rampTo: 30
+      name: Spike phase
+  processor: "./processor.js"
+  plugins:
+      expect: {}
+
+scenarios:
+  - beforeScenario: "setBody"
+    flow:
+      - log: "body {{user}}"
+      - post:
+          url: "/user"
+          json:
+            id: "{{ user.id }}"
+            name: "{{ user.name }}"
+          expect:
+            - statusCode: 200
+            
+          
+      - get:
+          url: "/user/{{user.id}}"
+          capture:
+            - json: "$"
+              as: res
+          expect:
+            - statusCode: 200
+            - contentType: json
+            - equals:
+              - "{{res.id}}"
+              - "{{ user.id }}"
