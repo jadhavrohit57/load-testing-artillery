@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "keywords": [
+    "artilleryio",
+    "express",
+    "loadtesting",
+    "api testing"
+  ],
   "scripts": {
     "start": "node index"
   },

@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "socket.js",
+  "keywords": [
+    "artilleryio",
+    "express",
+    "loadtesting",
+    "socket testing",
+    "socketio"
+  ],
   "scripts": {
     "start": "node socket.js"
   },
